@@ -1,0 +1,16 @@
+version: '3.9'
+services:
+  blogdev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    image: blogdev
+    container_name: blogdev
+    restart: always
+    volumes:
+      - .:/opt/blogdev
+      - /opt/blogdev/node_modules
+      - /opt/blogdev/.next
+    ports:
+      - "80:3000"

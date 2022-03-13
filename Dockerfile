@@ -7,6 +7,7 @@ ENV NODE_ENV=development
 COPY package.json yarn.lock ./
 RUN yarn install
 COPY . .
+RUN yarn generate
 EXPOSE 3000
 CMD [ "yarn", "run" , "dev"]
 

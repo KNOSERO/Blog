@@ -1,5 +1,6 @@
 version: '3.9'
 services:
+  
   # APLIKACJA KLIENCKA NEXTJS
   blogdev:
     build:
@@ -11,27 +12,30 @@ services:
     restart: always
     volumes:
       - .:/opt/blogdev
-      - blogDevAPP:/opt/blogdev/node_modules
-      - blogDevModle:/opt/blogdev/.next
+      - blogDevApp:/opt/blogdev/node_modules
+      - blogDevModules:/opt/blogdev/.next
     ports:
       - "80:3000"
+
   # BAZA DANYCH
   blog-db:
     image: mysql:5.7
     restart: always
     container_name: blogdevDB
     environment:
-      MYSQL_DATABASE: 'db'
-      MYSQL_USER: 'user'
-      MYSQL_PASSWORD: 'password'
-      MYSQL_ROOT_PASSWORD: 'password'
+      MYSQL_DATABASE: '${NameDB}'
+      MYSQL_USER: '${UserDB}'
+      MYSQL_PASSWORD: '${passwdDB}'
+      MYSQL_ROOT_PASSWORD: '${passwdDB}'
     ports:
       - '3306:3306'
     expose:
       - '3306'
     volumes:
       - blogDevDB:/var/lib/mysql
+
 volumes:
   blogDevDB:
-  blogDevAPP:
-  blogDevModle:
+  blogDevApp:
+  blogDevModules:
+  blogDevDBshadow:

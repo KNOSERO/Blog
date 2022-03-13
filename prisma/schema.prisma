@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id      Int      @id @default(autoincrement())
+  name    String
+  surname String
+  birth   DateTime
+  email   String
+  job     Job[]
+  school  School[]
+  skills  Skills[]
+}
+
+model School {
+  id     Int      @id @default(autoincrement())
+  name   String
+  start  DateTime
+  end    DateTime
+  userID Int
+  user   User     @relation(fields: [userID], references: [id])
+
+  @@index([userID], map: "School_userID_fkey")
+}
+
+model Job {
+  id     Int      @id @default(autoincrement())
+  name   String
+  start  DateTime
+  end    DateTime
+  userID Int
+  user   User     @relation(fields: [userID], references: [id])
+
+  @@index([userID], map: "Job_userID_fkey")
+}
+
+model Skills {
+  id     Int    @id @default(autoincrement())
+  name   String
+  star   Int
+  userID Int
+  user   User   @relation(fields: [userID], references: [id])
+
+  @@index([userID], map: "Skills_userID_fkey")
+}
+
+model Post {
+  id          Int    @id @default(autoincrement())
+  title       String
+  description String
+}

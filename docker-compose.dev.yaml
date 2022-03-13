@@ -1,5 +1,6 @@
 version: '3.9'
 services:
+  # APLIKACJA KLIENCKA NEXTJS
   blogdev:
     build:
       context: .
@@ -14,3 +15,29 @@ services:
       - /opt/blogdev/.next
     ports:
       - "80:3000"
+  # SERWER GRAPHQL PRISMA
+  #blogdev-server:
+  #  build:
+  #    context: ./server
+  #    dockerfile: Dockerfile
+  #    target: development
+  #  image: blogdev-server
+  #  container_name: blogdev-server
+  #  restart: always
+  #  ports:
+  #    - "4000:4000"
+  # BAZA DANYCH MYSQL
+  blog-db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'db'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - /var/lib/mysql

@@ -11,25 +11,15 @@ services:
     restart: always
     volumes:
       - .:/opt/blogdev
-      - /opt/blogdev/node_modules
-      - /opt/blogdev/.next
+      - blogDevAPP:/opt/blogdev/node_modules
+      - blogDevModle:/opt/blogdev/.next
     ports:
       - "80:3000"
-  # SERWER GRAPHQL PRISMA
-  #blogdev-server:
-  #  build:
-  #    context: ./server
-  #    dockerfile: Dockerfile
-  #    target: development
-  #  image: blogdev-server
-  #  container_name: blogdev-server
-  #  restart: always
-  #  ports:
-  #    - "4000:4000"
-  # BAZA DANYCH MYSQL
+  # BAZA DANYCH
   blog-db:
     image: mysql:5.7
     restart: always
+    container_name: blogdevDB
     environment:
       MYSQL_DATABASE: 'db'
       MYSQL_USER: 'user'
@@ -40,4 +30,8 @@ services:
     expose:
       - '3306'
     volumes:
-      - /var/lib/mysql
+      - blogDevDB:/var/lib/mysql
+volumes:
+  blogDevDB:
+  blogDevAPP:
+  blogDevModle:

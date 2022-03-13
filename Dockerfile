@@ -1,5 +1,5 @@
 # https://github.com/vercel/next.js/discussions/16995
-FROM node:17.1.0-alpine3.12 AS development
+FROM node:16.14 AS development
 WORKDIR /opt/blogdev
 ENV HOST=0.0.0.0
 ENV PORT=3000
@@ -10,19 +10,19 @@ COPY . .
 EXPOSE 3000
 CMD [ "yarn", "run" , "dev"]
 
-FROM node:17.1.0-alpine3.12 AS dependencies
+FROM node:16.14 AS dependencies
 ENV NODE_ENV=production
 WORKDIR /opt/blog
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
 
-FROM node:17.1.0-alpine3.12 AS builder
+FROM node:16.14 AS builder
 ENV NODE_ENV=development
 WORKDIR /opt/blog
 COPY . .
 RUN yarn install --frozen-lockfile && NODE_ENV=production yarn build
 
-FROM node:17.1.0-alpine3.12 AS production
+FROM node:16.14 AS production
 WORKDIR /opt/blog
 ENV HOST=0.0.0.0
 ENV PORT=3000

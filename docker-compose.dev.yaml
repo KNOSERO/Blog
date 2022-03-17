@@ -13,7 +13,8 @@ services:
       - blogDevApp:/opt/blogdev/node_modules
       - blogDevModules:/opt/blogdev/.next
     ports:
-      - "80:3000"  
+      - "80:3000"
+      - "9229:9229"
 volumes:
   blogDevApp:
     name: 'blogDevApp'
